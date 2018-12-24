@@ -80,3 +80,12 @@ class Tag(enum.Enum):
     # in this case, second_char is intended to point to the second byte of p, but adding 1 to p actually adds sizeof(int) to p which gives a result that is incorrect(3 byte off)
     POINTER_DEC = 6
     INCORRECT_POINTER_SCALING_WEAKNESS = 7
+    
+    # Compare instead of assigning：
+    #
+    # 
+    COMPARE_DEC = 8
+    COMPARE_INSTEAD_OF_ASSIGNING = 9
+    
+    
+    
