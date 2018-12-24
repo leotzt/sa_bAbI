@@ -45,9 +45,9 @@ POINTER_DECLARTION_LINE = ["int *$point_var_1;","$point_var_1 = &$idx_var;"]
 
 POINTER_INCORRECT_SCALING_LINE = ["char *$point_var_2 = (char *)($point_var_1 + $random_init);"]
 
-COMPARE_DECLARTION_LINE = ["int $idx_var;","$idx_var = $idx_init;"]
+COMPARE_DECLARTION_LINE = ["int $compare_var;","$compare_var = $idx_init;"]
 
-COMPARE_INSTEAD_OF_ASSIGNING_LINE = ["$idx_var == $random_init;"]
+COMPARE_INSTEAD_OF_ASSIGNING_LINE = ["$compare_var == $random_num;"]
 
 COND_DEC_INIT_PAIRS = [
     ("char $buf_var[$buf_len];", None),
