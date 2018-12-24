@@ -134,7 +134,8 @@ def main(args):
         else:
             include_cond_bufwrite = not taut_only
             instance_str, tags = gen(
-                include_cond_bufwrite=include_cond_bufwrite,include_incorrect_pointer_scale =include_incorrect_pointer_scale,include_compare_instead_of_assigning=include_compare_instead_of_assigning)
+                include_cond_bufwrite=include_cond_bufwrite,include_incorrect_pointer_scale =include_incorrect_pointer_scale,
+		    include_compare_instead_of_assigning=include_compare_instead_of_assigning)
 
         # generate filename
         byte_obj = bytes(instance_str, 'utf-8')
@@ -535,7 +536,7 @@ def _get_char():
 
 
 def _get_lines(dec_init_pairs, main_lines, dummy_vars, safe,
-               include_cond_bufwrite,include_incorrect_pointer_scale):
+               include_cond_bufwrite,include_incorrect_pointer_scale,include_compare_instead_of_assigning):
     """Create full body lines with setup, main content, and dummy interaction
 
     Args:
@@ -558,12 +559,18 @@ def _get_lines(dec_init_pairs, main_lines, dummy_vars, safe,
     body_tags = [Tag.BODY for _ in lines]
     if include_cond_bufwrite:
         query_tag = Tag.BUFWRITE_COND_SAFE if safe else Tag.BUFWRITE_COND_UNSAFE
-        body_tags[-4] = query_tag
+        body_tags[-7] = query_tag
     if include_incorrect_pointer_scale:
         query_tag_for_pointer = Tag.INCORRECT_POINTER_SCALING_WEAKNESS
-        body_tags[-3] = Tag.POINTER_DEC
-        body_tags[-2] = Tag.POINTER_DEC
-        body_tags[-1] = query_tag_for_pointer
+        body_tags[-6] = Tag.POINTER_DEC
+        body_tags[-5] = Tag.POINTER_DEC
+        body_tags[-4] = query_tag_for_pointer
+	
+    if include_compare_instead_of_assigning:
+	query_tag_for_compare = Tag.COMPARE_INSTEAD_OF_ASSIGNING
+	body_tags[-3] = Tag.COMPARE_DEC
+	body_tags[-2] = Tag.COMPARE_DEC
+	body_tags[-1] = query_tag_for_compare
 
     min_num_dummies = 0 if include_cond_bufwrite else MIN_NUM_DUMMIES_TAUTONLY
     num_dummies = random.randrange(min_num_dummies, MAX_NUM_DUMMIES + 1)
