@@ -126,8 +126,8 @@ def main(args):
 
     while inst_num < num_instances:
         # generate example
-        include_incorrect_pointer_scale = True;
-	include_compare_instead_of_assigning = True;
+        include_incorrect_pointer_scale = True
+	include_compare_instead_of_assigning = True
         gen = generators[inst_num % num_generators]
         if gen is gen_tautonly_linear_example:
             instance_str, tags = gen()
