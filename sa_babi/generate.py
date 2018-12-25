@@ -127,15 +127,14 @@ def main(args):
     while inst_num < num_instances:
         # generate example
         include_incorrect_pointer_scale = True
-	include_compare_instead_of_assigning = True
+        include_compare_instead_of_assigning = True
         gen = generators[inst_num % num_generators]
         if gen is gen_tautonly_linear_example:
             instance_str, tags = gen()
         else:
             include_cond_bufwrite = not taut_only
             instance_str, tags = gen(
-                include_cond_bufwrite=include_cond_bufwrite,include_incorrect_pointer_scale =include_incorrect_pointer_scale,
-		    include_compare_instead_of_assigning=include_compare_instead_of_assigning)
+                include_cond_bufwrite=include_cond_bufwrite,include_incorrect_pointer_scale =include_incorrect_pointer_scale,include_compare_instead_of_assigning=include_compare_instead_of_assigning)
 
         # generate filename
         byte_obj = bytes(instance_str, 'utf-8')
@@ -198,8 +197,8 @@ def gen_cond_example(include_cond_bufwrite=True,include_incorrect_pointer_scale 
         'point_var_1':point_var_1,
         'point_var_2':point_var_2,
         'random_init':random_init,
-	'compare_var':compare_var,
-	'random_num':random_num
+        'compare_var':compare_var,
+        'random_num':random_num
     }
     main_lines = templates.COND_MAIN_LINES
     cond = idx_init < thresh
@@ -210,8 +209,7 @@ def gen_cond_example(include_cond_bufwrite=True,include_incorrect_pointer_scale 
     return _assemble_general_example(dec_init_pairs, main_lines, dummy_vars,
                                      safe, substitutions,
                                      include_cond_bufwrite,
-                                     include_incorrect_pointer_scale,
-				     include_compare_instead_of_assigning)
+                                     include_incorrect_pointer_scale,include_compare_instead_of_assigning)
 
 
 def gen_while_example(include_cond_bufwrite=True,include_incorrect_pointer_scale=True,include_compare_instead_of_assigning=True):
@@ -241,8 +239,8 @@ def gen_while_example(include_cond_bufwrite=True,include_incorrect_pointer_scale
         'point_var_1': point_var_1,
         'point_var_2': point_var_2,
         'random_init': random_init,
-	'compare_var':compare_var,
-	'random_num':random_num
+        'compare_var':compare_var,
+        'random_num':random_num
     }
     main_lines = templates.WHILE_MAIN_LINES
     safe = max(idx_init, max_idx) < buf_len
@@ -251,8 +249,7 @@ def gen_while_example(include_cond_bufwrite=True,include_incorrect_pointer_scale
     return _assemble_general_example(dec_init_pairs, main_lines, dummy_vars,
                                      safe, substitutions,
                                      include_cond_bufwrite,
-                                     include_incorrect_pointer_scale,
-				     include_compare_instead_of_assigning)
+                                     include_incorrect_pointer_scale,include_compare_instead_of_assigning)
 
 
 def gen_for_example(include_cond_bufwrite=True,include_incorrect_pointer_scale=True,include_compare_instead_of_assigning=True):
@@ -282,8 +279,8 @@ def gen_for_example(include_cond_bufwrite=True,include_incorrect_pointer_scale=T
         'point_var_1': point_var_1,
         'point_var_2': point_var_2,
         'random_init': random_init,
-	'compare_var': compare_var,
-	'random_num': random_num
+        'compare_var': compare_var,
+        'random_num': random_num
     }
     main_lines = templates.FOR_MAIN_LINES
     safe = max(idx_init, max_idx) < buf_len
@@ -292,8 +289,7 @@ def gen_for_example(include_cond_bufwrite=True,include_incorrect_pointer_scale=T
     return _assemble_general_example(dec_init_pairs, main_lines, dummy_vars,
                                      safe, substitutions,
                                      include_cond_bufwrite,
-                                     include_incorrect_pointer_scale,
-				     include_compare_instead_of_assigning)
+                                     include_incorrect_pointer_scale,include_compare_instead_of_assigning)
 
 
 def gen_fv_cond_example(include_cond_bufwrite=True,include_incorrect_pointer_scale=True,include_compare_instead_of_assigning=True):
@@ -325,8 +321,8 @@ def gen_fv_cond_example(include_cond_bufwrite=True,include_incorrect_pointer_sca
         'point_var_1': point_var_1,
         'point_var_2': point_var_2,
         'random_init': random_init,
-	'compare_var': compare_var,
-	'random_num': random_num
+        'compare_var': compare_var,
+        'random_num': random_num
     }
     main_lines = templates.COND_FV_MAIN_LINES
     safe = max(chk - 1, false_idx) < buf_len
@@ -335,8 +331,7 @@ def gen_fv_cond_example(include_cond_bufwrite=True,include_incorrect_pointer_sca
     return _assemble_general_example(dec_init_pairs, main_lines, dummy_vars,
                                      safe, substitutions,
                                      include_cond_bufwrite,
-                                     include_incorrect_pointer_scale,
-				     include_compare_instead_of_assigning)
+                                     include_incorrect_pointer_scale,include_compare_instead_of_assigning)
 
 
 def gen_fv_while_example(include_cond_bufwrite=True,include_incorrect_pointer_scale=True,include_compare_instead_of_assigning=True):
@@ -369,8 +364,8 @@ def gen_fv_while_example(include_cond_bufwrite=True,include_incorrect_pointer_sc
         'point_var_1': point_var_1,
         'point_var_2': point_var_2,
         'random_init': random_init,
-	'compare_var': compare_var,
-	'random_num':random_num
+        'compare_var': compare_var,
+        'random_num':random_num
     }
     main_lines = templates.WHILE_FV_MAIN_LINES
     safe = max(chk - 1, false_idx, idx_init) < buf_len
@@ -379,8 +374,7 @@ def gen_fv_while_example(include_cond_bufwrite=True,include_incorrect_pointer_sc
     return _assemble_general_example(dec_init_pairs, main_lines, dummy_vars,
                                      safe, substitutions,
                                      include_cond_bufwrite,
-                                     include_incorrect_pointer_scale,
-				     include_compare_instead_of_assigning)
+                                     include_incorrect_pointer_scale,include_compare_instead_of_assigning)
 
 
 def gen_fv_for_example(include_cond_bufwrite=True,include_incorrect_pointer_scale=True,include_compare_instead_of_assigning=True):
@@ -413,8 +407,8 @@ def gen_fv_for_example(include_cond_bufwrite=True,include_incorrect_pointer_scal
         'point_var_1': point_var_1,
         'point_var_2': point_var_2,
         'random_init': random_init,
-	'compare_var': compare_var,
-	'random_num': random_num
+        'compare_var': compare_var,
+        'random_num': random_num
     }
     main_lines = templates.FOR_FV_MAIN_LINES
     safe = max(chk - 1, false_idx, idx_init) < buf_len
@@ -423,8 +417,7 @@ def gen_fv_for_example(include_cond_bufwrite=True,include_incorrect_pointer_scal
     return _assemble_general_example(dec_init_pairs, main_lines, dummy_vars,
                                      safe, substitutions,
                                      include_cond_bufwrite,
-                                     include_incorrect_pointer_scale,
-				     include_compare_instead_of_assigning)
+                                     include_incorrect_pointer_scale,include_compare_instead_of_assigning)
 
 
 def gen_tautonly_linear_example():
@@ -445,8 +438,7 @@ def gen_tautonly_linear_example():
     return _assemble_general_example(dec_init_pairs, main_lines, dummy_vars,
                                      safe, substitutions,
                                      include_cond_bufwrite,
-                                     include_incorrect_pointer_scale=True,
-				     include_compare_instead_of_assigning=True)
+                                     include_incorrect_pointer_scale=True,include_compare_instead_of_assigning=True)
 
 
 def _assemble_general_example(dec_init_pairs, main_lines, dummy_vars,
@@ -481,10 +473,10 @@ def _assemble_general_example(dec_init_pairs, main_lines, dummy_vars,
     if include_incorrect_pointer_scale:
         main_lines += templates.POINTER_DECLARTION_LINE
         main_lines += templates.POINTER_INCORRECT_SCALING_LINE
-	
+
     if include_compare_instead_of_assigning:
-	main_lines += templates.COMPARE_DECLARTION_LINE
-	main_lines += templates.COMPARE_INSTEAD_OF_ASSIGNING_LINE
+        main_lines += templates.COMPARE_DECLARTION_LINE
+        main_lines += templates.COMPARE_INSTEAD_OF_ASSIGNING_LINE
 
 
     lines, body_tags = _get_lines(dec_init_pairs, main_lines,
@@ -565,12 +557,12 @@ def _get_lines(dec_init_pairs, main_lines, dummy_vars, safe,
         body_tags[-6] = Tag.POINTER_DEC
         body_tags[-5] = Tag.POINTER_DEC
         body_tags[-4] = query_tag_for_pointer
-	
+
     if include_compare_instead_of_assigning:
-	query_tag_for_compare = Tag.COMPARE_INSTEAD_OF_ASSIGNING
-	body_tags[-3] = Tag.COMPARE_DEC
-	body_tags[-2] = Tag.COMPARE_DEC
-	body_tags[-1] = query_tag_for_compare
+        query_tag_for_compare = Tag.COMPARE_INSTEAD_OF_ASSIGNING
+        body_tags[-3] = Tag.COMPARE_DEC
+        body_tags[-2] = Tag.COMPARE_DEC
+        body_tags[-1] = query_tag_for_compare
 
     min_num_dummies = 0 if include_cond_bufwrite else MIN_NUM_DUMMIES_TAUTONLY
     num_dummies = random.randrange(min_num_dummies, MAX_NUM_DUMMIES + 1)
