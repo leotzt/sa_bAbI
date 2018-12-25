@@ -41,9 +41,6 @@
 BUFWRITE_LINES = ["$buf_var[$idx_var] = '$char';"]
 
 # templates for functions without free variables
-POINTER_DECLARTION_LINE = ["int *$point_var_1;","$point_var_1 = &$idx_var;"]
-
-POINTER_INCORRECT_SCALING_LINE = ["char *$point_var_2 = (char *)($point_var_1 + $random_init);"]
 
 COMPARE_DECLARTION_LINE = ["int $compare_var;","$compare_var = $idx_init;"]
 
