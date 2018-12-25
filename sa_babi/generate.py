@@ -174,8 +174,8 @@ def gen_cond_example(include_cond_bufwrite=True,include_incorrect_pointer_scale 
         tags (list of Tag): tag for each line representing buffer safety
     """
     anon_vars = _get_anon_vars()
-    buf_var, idx_var, thresh_var, point_var_1, point_var_2, compare_var = anon_vars[:6]
-    dummy_vars = anon_vars[6:]
+    buf_var, idx_var, thresh_var, compare_var = anon_vars[:4]
+    dummy_vars = anon_vars[4:]
     thresh = random.randrange(MAX_IDX)
     idx_init = random.randrange(MAX_IDX)
     buf_len = random.randrange(MAX_IDX)
@@ -194,8 +194,6 @@ def gen_cond_example(include_cond_bufwrite=True,include_incorrect_pointer_scale 
         'true_idx': true_idx,
         'false_idx': false_idx,
         'char': char,
-        'point_var_1':point_var_1,
-        'point_var_2':point_var_2,
         'random_init':random_init,
         'compare_var':compare_var,
         'random_num':random_num
@@ -300,8 +298,8 @@ def gen_fv_cond_example(include_cond_bufwrite=True,include_incorrect_pointer_sca
         tags (list of Tag): tag for each line representing buffer safety
     """
     anon_vars = _get_anon_vars()
-    buf_var, idx_var, chk_var,point_var_1, point_var_2, compare_var = anon_vars[:6]
-    dummy_vars = anon_vars[6:]
+    buf_var, idx_var, chk_var,compare_var = anon_vars[:4]
+    dummy_vars = anon_vars[4:]
     chk = random.randrange(MAX_IDX)
     buf_len = random.randrange(MAX_IDX)
     false_idx = random.randrange(MAX_IDX)
@@ -318,8 +316,6 @@ def gen_fv_cond_example(include_cond_bufwrite=True,include_incorrect_pointer_sca
         'idx_init': idx_init,
         'false_idx': false_idx,
         'char': char,
-        'point_var_1': point_var_1,
-        'point_var_2': point_var_2,
         'random_init': random_init,
         'compare_var': compare_var,
         'random_num': random_num
@@ -342,8 +338,8 @@ def gen_fv_while_example(include_cond_bufwrite=True,include_incorrect_pointer_sc
         tags (list of Tag): tag for each line representing buffer safety
     """
     anon_vars = _get_anon_vars()
-    buf_var, idx_var, max_var, chk_var,point_var_1, point_var_2, compare_var = anon_vars[:7]
-    dummy_vars = anon_vars[7:]
+    buf_var, idx_var, max_var, chk_var, compare_var = anon_vars[:5]
+    dummy_vars = anon_vars[5:]
     chk = random.randrange(MAX_IDX)
     buf_len = random.randrange(MAX_IDX)
     false_idx = random.randrange(MAX_IDX)
@@ -361,11 +357,9 @@ def gen_fv_while_example(include_cond_bufwrite=True,include_incorrect_pointer_sc
         'idx_init': idx_init,
         'false_idx': false_idx,
         'char': char,
-        'point_var_1': point_var_1,
-        'point_var_2': point_var_2,
         'random_init': random_init,
         'compare_var': compare_var,
-        'random_num':random_num
+        'random_num':ramdom_num
     }
     main_lines = templates.WHILE_FV_MAIN_LINES
     safe = max(chk - 1, false_idx, idx_init) < buf_len
@@ -385,8 +379,8 @@ def gen_fv_for_example(include_cond_bufwrite=True,include_incorrect_pointer_scal
         tags (list of Tag): tag for each line representing buffer safety
     """
     anon_vars = _get_anon_vars()
-    buf_var, idx_var, max_var, chk_var,point_var_1, point_var_2,compare_var = anon_vars[:7]
-    dummy_vars = anon_vars[7:]
+    buf_var, idx_var, max_var, chk_var,compare_var = anon_vars[:5]
+    dummy_vars = anon_vars[5:]
     chk = random.randrange(MAX_IDX)
     buf_len = random.randrange(MAX_IDX)
     false_idx = random.randrange(MAX_IDX)
@@ -404,8 +398,6 @@ def gen_fv_for_example(include_cond_bufwrite=True,include_incorrect_pointer_scal
         'idx_init': idx_init,
         'false_idx': false_idx,
         'char': char,
-        'point_var_1': point_var_1,
-        'point_var_2': point_var_2,
         'random_init': random_init,
         'compare_var': compare_var,
         'random_num': random_num
@@ -470,9 +462,6 @@ def _assemble_general_example(dec_init_pairs, main_lines, dummy_vars,
     else:
         safe = None
 
-    if include_incorrect_pointer_scale:
-        main_lines += templates.POINTER_DECLARTION_LINE
-        main_lines += templates.POINTER_INCORRECT_SCALING_LINE
 
     if include_compare_instead_of_assigning:
         main_lines += templates.COMPARE_DECLARTION_LINE
@@ -551,12 +540,7 @@ def _get_lines(dec_init_pairs, main_lines, dummy_vars, safe,
     body_tags = [Tag.BODY for _ in lines]
     if include_cond_bufwrite:
         query_tag = Tag.BUFWRITE_COND_SAFE if safe else Tag.BUFWRITE_COND_UNSAFE
-        body_tags[-7] = query_tag
-    if include_incorrect_pointer_scale:
-        query_tag_for_pointer = Tag.INCORRECT_POINTER_SCALING_WEAKNESS
-        body_tags[-6] = Tag.POINTER_DEC
-        body_tags[-5] = Tag.POINTER_DEC
-        body_tags[-4] = query_tag_for_pointer
+        body_tags[-4] = query_tag
 
     if include_compare_instead_of_assigning:
         query_tag_for_compare = Tag.COMPARE_INSTEAD_OF_ASSIGNING
